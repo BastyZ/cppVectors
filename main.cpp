@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cassert>
 
+
 template <class T>
 class Point {
 private:
@@ -63,10 +64,45 @@ public:
 
 };
 
+
+template <class T>
+class HalfEdge {
+private:
+    Point<T> point = NULL;
+    HalfEdge<T> *previous = NULL;
+    HalfEdge<T> *next = NULL;
+public:
+    HalfEdge(Point<T> *punto) {
+        this->point = punto;
+    }
+
+    HalfEdge(Point<T> *punto, HalfEdge<T> *prev) {
+        this->point = punto;
+        this->previous = prev;
+    }
+
+    HalfEdge(Point<T> *punto, HalfEdge<T> *prev, HalfEdge<T> *sig) {
+        this->point = punto;
+        this->previous = prev;
+        this->next = sig;
+    }
+};
+
+template <class T>
+class Face {
+private:
+    HalfEdge<T> *edge;
+public:
+    Face(HalfEdge<T> *anEdge) {
+        this->edge = anEdge;
+    }
+};
+
 template <class T>
 class Vector {
 private:
     Point<T> *dot;
+    HalfEdge<T> *edge;
 public:
     Vector(Point<T> &p) {
         this->dot = &p;
@@ -127,8 +163,8 @@ public:
         Point<double> *a = normalized(*this).get();
         Point<double> *c = normalized(b).get();
         return fabs(a->getX()-c->getX()) < 0.0001 &&
-                fabs(a->getY()-c->getY()) < 0.0001 &&
-                fabs(a->getZ()-c->getZ()) < 0.0001;
+               fabs(a->getY()-c->getY()) < 0.0001 &&
+               fabs(a->getZ()-c->getZ()) < 0.0001;
     }
 
     // Producto punto
@@ -146,6 +182,7 @@ public:
         return Vector(x, y, z);
     }
 };
+
 
 void test_point() {
     Point<int> a(2,4,2);
@@ -169,8 +206,7 @@ void test_vector() {
     assert(i*i == 3);
     bool c = i==i;
     assert(c);
-    std::cout << b.cross(a).getY() << std::endl;
-    assert(abs(b.cross(a).getY()+5.25) < 0.01);
+    assert(fabs(b.cross(a).getY()+5.25) < 0.01);
 }
 
 int main() {
