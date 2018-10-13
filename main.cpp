@@ -64,45 +64,10 @@ public:
 
 };
 
-
-template <class T>
-class HalfEdge {
-private:
-    Point<T> point = NULL;
-    HalfEdge<T> *previous = NULL;
-    HalfEdge<T> *next = NULL;
-public:
-    HalfEdge(Point<T> *punto) {
-        this->point = punto;
-    }
-
-    HalfEdge(Point<T> *punto, HalfEdge<T> *prev) {
-        this->point = punto;
-        this->previous = prev;
-    }
-
-    HalfEdge(Point<T> *punto, HalfEdge<T> *prev, HalfEdge<T> *sig) {
-        this->point = punto;
-        this->previous = prev;
-        this->next = sig;
-    }
-};
-
-template <class T>
-class Face {
-private:
-    HalfEdge<T> *edge;
-public:
-    Face(HalfEdge<T> *anEdge) {
-        this->edge = anEdge;
-    }
-};
-
 template <class T>
 class Vector {
 private:
     Point<T> *dot;
-    HalfEdge<T> *edge;
 public:
     Vector(Point<T> &p) {
         this->dot = &p;
@@ -183,6 +148,50 @@ public:
     }
 };
 
+template <class T>
+class HalfEdge {
+private:
+    Point<T> point;
+    HalfEdge<T> *next, *previous;
+    HalfEdge<T> *pair;
+public:
+    HalfEdge(Point<T> *punto) {
+        this->point = punto;
+    }
+
+    HalfEdge(Point<T> *punto, HalfEdge<T> *prev) {
+        this->point = punto;
+        this->previous = prev;
+    }
+
+    HalfEdge(Point<T> *punto, HalfEdge<T> *prev, HalfEdge<T> *sig) {
+        this->point = punto;
+        this->previous = prev;
+        this->next = sig;
+    }
+};
+
+template <class T>
+class Vertex {
+private:
+    Point<T> *point = NULL;
+    HalfEdge<T> *hEdge = NULL;
+public:
+    Vertex(Point<T> *p, HalfEdge<T> *e) {
+        point = p;
+        hEdge = e;
+    }
+};
+
+template <class T>
+class Face {
+private:
+    HalfEdge<T> *edge;
+public:
+    Face(HalfEdge<T> *anEdge) {
+        this->edge = anEdge;
+    }
+};
 
 void test_point() {
     Point<int> a(2,4,2);
