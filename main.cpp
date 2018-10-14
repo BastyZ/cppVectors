@@ -46,6 +46,18 @@ void test_dcel() {
     HalfEdge<double> edge3(&v3, &edge2, &edge1);
     v3.addHalfEdge(&edge3);
     edge3.setFace(&face1);
+    HalfEdge<double> edge4(&v1);
+    Face<double> face2(&edge4);
+    edge4.setFace(&face2);
+    HalfEdge<double> edge5(&v2, &edge4);
+    v2.addHalfEdge(&edge5);
+    edge4.setNext(&edge5);
+    edge5.setFace(&face2);
+    HalfEdge<double> edge6(&v3, &edge5);
+    edge6.setFace(&face2);
+    edge6.setPair(&edge2);
+    edge2.setPair(&edge6);
+    edge5.setNext(&edge6);
 }
 
 int main() {
