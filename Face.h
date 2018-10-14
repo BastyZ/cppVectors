@@ -5,6 +5,8 @@
 #ifndef CPPVECTORS_FACE_H
 #define CPPVECTORS_FACE_H
 
+#include <cstdio>
+
 template <class T>
 class HalfEdge;
 
@@ -15,6 +17,14 @@ private:
 public:
     Face(HalfEdge<T> *anEdge) {
         this->edge = anEdge;
+    }
+
+    HalfEdge<T> getEdge() {
+        return this->edge;
+    }
+
+    bool notNull() {
+        return &edge != NULL;
     }
 };
 

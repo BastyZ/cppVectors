@@ -31,13 +31,27 @@ void test_vector() {
     assert(fabs(b.cross(a).getY()+5.25) < 0.01);
 }
 
+void test_dcel() {
+    Point<double> a(1,1,1), b(2,1,1), c(2,2,1), d(1,2,1);
+    Vertex<double> v1(&a), v2(&b), v3(&c), v4(&d);
+    HalfEdge<double> edge1(&v4);
+    v4.addHalfEdge(&edge1);
+    Face<double> face1(&edge1);
+    assert(face1.notNull()); //Face no nulo
+    edge1.setFace(&face1); //cara que lo contiene
+    HalfEdge<double> edge2(&v1, &edge1);
+    v1.addHalfEdge(&edge2);
+    edge1.setNext(&edge2);
+    edge2.setFace(&face1);
+    HalfEdge<double> edge3(&v3, &edge2, &edge1);
+    v3.addHalfEdge(&edge3);
+    edge3.setFace(&face1);
+}
+
 int main() {
     test_point();
     test_vector();
-    Point<double> a(1,1,1);
-    Vertex<double> vertex(&a);
-    HalfEdge<double> edge(&vertex);
-    Face<double> face(&edge);
+    test_dcel();
     std::cout << "All test passed" << std::endl;
     return 0;
 }

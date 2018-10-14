@@ -31,6 +31,26 @@ public:
         this->previous = prev;
         this->next = sig;
     }
+
+    void setFace(Face<T> *f) {
+        face = f;
+    }
+
+    void setNext(HalfEdge<T> *sig) {
+        this->next = sig;
+    }
+
+    void setPrev(HalfEdge<T> *prev) {
+        this->previous = prev;
+    }
+
+    void setPair(HalfEdge<T> *p) {
+        this->pair = p;
+    }
+
+    Face<T> getFace() {
+        return this->face;
+    }
 };
 
 #endif //CPPVECTORS_HALFEDGE_H
