@@ -4,7 +4,8 @@ First homework of GPU computing course at fcfm, it's like a fast tutorial/traini
 __c++17__ is used for this project.
 
 ## Running the homework: 
-bc idk how to run cpp code from a terminal, I'll recomend to open the project on CLion and run it from there.
+because I don't know how to run cpp code from a terminal, I'll recommend to open the project on CLion and run
+it from there as I did.
 I'm hope that in a short future I'll know more details, but it's my first time with cpp
  and CLion made it a lot easier 
 on Linux.
